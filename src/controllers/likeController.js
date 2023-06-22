@@ -1,8 +1,24 @@
 import initModels from "../models/init-models.js";
 import sequelize from "../models/index.js"; 
-import { errorCode, errorRequest, successCode } from "../config/response.js";
+import { errorCode, errorRequest, failedCode, successCode } from "../config/response.js";
 
 const models = initModels(sequelize); 
+
+// Handle restaurant like
+const actionLike = async (req, res) => {
+  try {
+    let { user_id, res_id } = req.body;
+    let newLike = {
+      user_id,
+      res_id,
+      date_like: new Date(),
+    };
+    await models.like_res.create(newLike);
+    successCode(res, newLike, "Successfully like !");
+  } catch {
+    failedCode(res, "Error from input data !");
+  }
+}; 
 
 // Get list of likes by restaurant 
 const getLikeListByResto = async (req, res) => {
@@ -78,6 +94,7 @@ const getLikeListByUser = async (req, res) => {
 };
 
 export {
+    actionLike,
     getLikeListByResto,
     getLikeListByUser
 }
