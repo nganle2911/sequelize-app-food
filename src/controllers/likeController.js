@@ -8,13 +8,35 @@ const models = initModels(sequelize);
 const getLikeListByResto = async (req, res) => {
   try {
     let { res_id } = req.params;
-    let data = await models.restaurant.findAll({
-      include: ["like_res"],
+
+    // Check whether res_id exists
+    let checkResto = await models.restaurant.findOne({
       where: {
-        res_id
-      }
+        res_id,
+      },
     });
-    successCode(res, data, "Get list of likes by restaurant successfully !");
+
+    if (checkResto) {
+      let data = await models.restaurant.findAll({
+        include: ["like_res"],
+        where: {
+          res_id,
+        },
+      });
+
+      // Check if this res_id doesn't have any likes
+      if (data[0]["like_res"].length === 0) {
+        successCode(res, data, "This restaurant doesn't have any likes !");
+      } else {
+        successCode(
+          res,
+          data,
+          "Get list of likes by restaurant successfully !"
+        );
+      }
+    } else {
+      errorRequest(res, "Restaurant not found !");
+    }
   } catch {
     errorCode(res, "Error from BE !");
   }
@@ -46,7 +68,7 @@ const getLikeListByUser = async (req, res) => {
       } else {
         successCode(res, data, "Get list of likes by user successfully !");
       }
-      
+
     } else {
       errorRequest(res, "User not found !");
     }
