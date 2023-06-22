@@ -4,5 +4,13 @@
   "main": "index.js",
   "repository": "https://github.com/nganle2911/sequelize-app-food.git",
   "author": "Ngan LE <ngan.ltkn2911@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22"
+  }
 }
