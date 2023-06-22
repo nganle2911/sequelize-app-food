@@ -1,0 +1,234 @@
+{
+	"info": {
+		"_postman_id": "6c870038-d792-47a8-9747-9280b7a051de",
+		"name": "Node32_Sequelize_App_Food",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21634312"
+	},
+	"item": [
+		{
+			"name": "Lấy danh sách like theo restaurant",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/api/like/like-by-resto/3",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"like",
+						"like-by-resto",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lấy danh sách like theo user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/api/like/like-by-user/1",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"like",
+						"like-by-user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lấy danh sách đánh giá theo restaurant",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/api/rate/rate-by-resto/1",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"rate",
+						"rate-by-resto",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lấy danh sách đánh giá theo user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/api/rate/rate-by-user/2",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"rate",
+						"rate-by-user",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Xử lý like nhà hàng",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_id\": \"7\",\n    \"res_id\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/api/like/action-like",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"like",
+						"action-like"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Xử lý dislike nhà hàng ",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/api/like/action-dislike/7/1",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"like",
+						"action-dislike",
+						"7",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Thêm đánh giá nhà hàng",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_id\": \"4\",\n    \"res_id\": \"1\",\n    \"amount\": \"3\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/api/rate/action-rate",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"rate",
+						"action-rate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User đặt món (thêm order) ",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_id\": \"4\",\n    \"food_id\": \"6\",\n    \"amount\": \"7\",\n    \"code\": \"ORD456\",\n    \"arr_sub_id\": \"[1,2]\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/api/order/action-order",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"order",
+						"action-order"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "domain",
+			"value": "localhost:8080",
+			"type": "string"
+		}
+	]
+}
