@@ -1,6 +1,6 @@
 import initModels from "../models/init-models.js";
 import sequelize from "../models/index.js"; 
-import { errorCode, successCode } from "../config/response.js";
+import { errorCode, errorRequest, successCode } from "../config/response.js";
 
 const models = initModels(sequelize); 
 
@@ -23,25 +23,35 @@ const getLikeListByResto = async (req, res) => {
 // Get list of likes by user 
 const getLikeListByUser = async (req, res) => {
   try {
-    let {user_id} = req.params; 
+    let { user_id } = req.params;
 
-    // Check whether user_id exists 
+    // Check whether user_id exists
     let checkUser = await models.user.findOne({
-        where: {
-            user_id
-        }
-    }); 
+      where: {
+        user_id,
+      },
+    });
 
     if (checkUser) {
-        let data = await models.user.findAll({
-            include: ["res_id_restaurants"]
-        }); 
-        successCode(res, data, "Get list of likes by user successfully !"); 
+      let data = await models.user.findAll({
+        include: ["res_id_restaurants"],
+        where: {
+          user_id,
+        },
+      });
+
+      // Check if this user_id likes any restaurants
+      if (data[0]["res_id_restaurants"].length === 0) {
+        successCode(res, data, "This user doesn't like any restaurants !");
+      } else {
+        successCode(res, data, "Get list of likes by user successfully !");
+      }
+      
     } else {
-        successCode(res, data, )
+      errorRequest(res, "User not found !");
     }
   } catch {
-    
+    errorCode(res, "Error from BE !");
   }
 };
 
