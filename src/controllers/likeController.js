@@ -4,7 +4,7 @@ import { errorCode, errorRequest, failedCode, successCode } from "../config/resp
 
 const models = initModels(sequelize); 
 
-// Handle restaurant like
+// Handle the action of liking restaurants 
 const actionLike = async (req, res) => {
   try {
     let { user_id, res_id } = req.body;
@@ -19,6 +19,22 @@ const actionLike = async (req, res) => {
     failedCode(res, "Error from input data !");
   }
 }; 
+
+// Handle the action of disliking restaurants 
+const actionDislike = async (req, res) => {
+  try {
+    let {user_id, res_id} = req.params; 
+    let dislike = await models.like_res.destroy({
+      where: {
+        user_id,
+        res_id
+      }
+    }); 
+    successCode(res, dislike, "Successfully dislike !"); 
+  } catch {
+    errorCode(res, "Error from BE !"); 
+  }
+};
 
 // Get list of likes by restaurant 
 const getLikeListByResto = async (req, res) => {
@@ -95,6 +111,7 @@ const getLikeListByUser = async (req, res) => {
 
 export {
     actionLike,
+    actionDislike,
     getLikeListByResto,
     getLikeListByUser
 }
