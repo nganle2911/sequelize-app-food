@@ -24,14 +24,14 @@ const getLikeListByResto = async (req, res) => {
         },
       });
 
-      // Check if this res_id doesn't have any likes
+      // Check if this res_id has any likes
       if (data[0]["like_res"].length === 0) {
         successCode(res, data, "This restaurant doesn't have any likes !");
       } else {
         successCode(
           res,
           data,
-          "Get list of likes by restaurant successfully !"
+          "Successfully get list of likes by restaurant !"
         );
       }
     } else {
@@ -66,7 +66,7 @@ const getLikeListByUser = async (req, res) => {
       if (data[0]["res_id_restaurants"].length === 0) {
         successCode(res, data, "This user doesn't like any restaurants !");
       } else {
-        successCode(res, data, "Get list of likes by user successfully !");
+        successCode(res, data, "Successfully get list of likes by user !");
       }
 
     } else {
