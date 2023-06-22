@@ -13,6 +13,13 @@ const failedCode = (res, message) => {
   });
 };
 
+// 404 - Not Found 
+const errorRequest = (res, message) => {
+  res.status(404).json({
+    message,
+  });
+};
+
 // 500
 const errorCode = (res, message) => {
   res.status(500).json({
@@ -20,4 +27,4 @@ const errorCode = (res, message) => {
   });
 };
 
-export { successCode, failedCode, errorCode };
+export { successCode, failedCode, errorRequest, errorCode };

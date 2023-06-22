@@ -23,16 +23,25 @@ const getLikeListByResto = async (req, res) => {
 // Get list of likes by user 
 const getLikeListByUser = async (req, res) => {
   try {
-    let { user_id } = req.params;
-    let data = await models.user.findAll({
-      include: ["res_id_restaurants"],
-      where: {
-        user_id,
-      },
-    });
-    successCode(res, data, "Get list of likes by user successfully !");
+    let {user_id} = req.params; 
+
+    // Check whether user_id exists 
+    let checkUser = await models.user.findOne({
+        where: {
+            user_id
+        }
+    }); 
+
+    if (checkUser) {
+        let data = await models.user.findAll({
+            include: ["res_id_restaurants"]
+        }); 
+        successCode(res, data, "Get list of likes by user successfully !"); 
+    } else {
+        successCode(res, data, )
+    }
   } catch {
-    errorCode(res, "Error from BE !");
+    
   }
 };
 
