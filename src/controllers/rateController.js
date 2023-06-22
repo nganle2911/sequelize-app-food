@@ -4,7 +4,7 @@ import { errorCode, errorRequest, successCode } from "../config/response.js";
 
 const models = initModels(sequelize); 
 
-// Get list of rates by restaurant 
+// Get list of ratings by restaurant 
 const getRateListByResto = async (req, res) => {
   try {
     let { res_id } = req.params;
@@ -42,6 +42,42 @@ const getRateListByResto = async (req, res) => {
   }
 };
 
+// Get list of ratings by user 
+const getRateListByUser = async (req, res) => {
+  try {
+    let { user_id } = req.params;
+
+    // Check if user_id exists
+    let checkUser = await models.user.findOne({
+      where: {
+        user_id,
+      },
+    });
+
+    if (checkUser) {
+      let data = await models.user.findAll({
+        include: ["res_id_restaurant_rate_res"],
+        where: {
+          user_id,
+        },
+      });
+
+      // Check if this user rates any restaurant
+      if (data[0]["res_id_restaurant_rate_res"].length === 0) {
+        successCode(res, data, "This user doesn't rate any restaurants !");
+      } else {
+        successCode(res, data, "Successfully get list of ratings by user !");
+      }
+      
+    } else {
+      errorRequest(res, "User not found !");
+    }
+  } catch {
+    errorCode(res, "Error from BE !");
+  }
+};
+
 export {
-    getRateListByResto
+    getRateListByResto,
+    getRateListByUser
 }
