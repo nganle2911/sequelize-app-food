@@ -1,8 +1,25 @@
 import initModels from "../models/init-models.js";
 import sequelize from "../models/index.js";
-import { errorCode, errorRequest, successCode } from "../config/response.js";
+import { errorCode, errorRequest, failedCode, successCode } from "../config/response.js";
 
 const models = initModels(sequelize); 
+
+// Handle the action of rating restaurant 
+const actionRate = async (req, res) => {
+  try {
+    let { user_id, res_id, amount } = req.body;
+    let newRate = {
+      user_id,
+      res_id,
+      amount,
+      date_rate: new Date(),
+    };
+    await models.rate_res.create(newRate);
+    successCode(res, newRate, "Successfully rate !");
+  } catch {
+    failedCode(res, "Error from input data !");
+  }
+};
 
 // Get list of ratings by restaurant 
 const getRateListByResto = async (req, res) => {
@@ -77,7 +94,4 @@ const getRateListByUser = async (req, res) => {
   }
 };
 
-export {
-    getRateListByResto,
-    getRateListByUser
-}
+export { actionRate, getRateListByResto, getRateListByUser };
