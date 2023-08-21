@@ -2,9 +2,6 @@
   "name": "Node32_sequelize_app_food",
   "version": "1.0.0",
   "main": "index.js",
-  "engines": {
-    "node": "16.17.0"
-  },
   "repository": "https://github.com/nganle2911/sequelize-app-food.git",
   "author": "Ngan LE <ngan.ltkn2911@gmail.com>",
   "license": "MIT",
