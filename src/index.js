@@ -6,6 +6,10 @@ const app = express();
 
 app.use(express.json()); 
 app.use(cors()); 
-app.listen(8080); 
+
+const port = process.env.PORT || 3306; 
+app.listen(port, () => {
+    console.log("App is running"); 
+}); 
 
 app.use("/api", rootRouter); 
